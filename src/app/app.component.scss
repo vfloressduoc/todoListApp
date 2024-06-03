@@ -1,0 +1,18 @@
+ion-menu {
+  ion-content {
+    ion-list {
+      ion-menu-toggle {
+        ion-item {
+          font-size: 1.2em; /* Adjust the font size as needed */
+          text-align: center; /* Center align the text */
+          padding: 16px 32px; /* Adjust padding for spacing */
+          margin-bottom: 10px; /* Add margin to separate items */
+        font-weight: bold !important; /* Use !important to ensure style specificity */
+  
+  
+        }
+      }
+    }
+  }
+}
+

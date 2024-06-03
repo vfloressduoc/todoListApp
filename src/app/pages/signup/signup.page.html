@@ -1,0 +1,34 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" routerLink="/home">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/login">Iniciar Sesión</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <h1>Crea tu Cuenta</h1>
+
+  <form id="form" (submit)="signup()">
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="nombre" name="nombre" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Correo electrónico</ion-label>
+      <ion-input [(ngModel)]="email" name="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+    </ion-item>
+    <ion-button expand="block" shape="round" type="submit">Crear Cuenta</ion-button>
+  </form>
+
+  <p>Al crear tu cuenta estás aceptando nuestros <br />Términos & Condiciones.</p>
+</ion-content>

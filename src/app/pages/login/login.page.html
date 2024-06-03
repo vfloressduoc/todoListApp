@@ -1,0 +1,31 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button color="primary" routerLink="/home">
+        <ion-icon slot="icon-only" name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/signup">Crea una Cuenta</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div id="header">
+    <h1>Iniciar Sesión</h1>
+    <img src="/assets/icon/penguicon.png" />
+  </div>
+
+  <form id="form" (submit)="login()">
+    <ion-item>
+      <ion-label position="floating">Correo electrónico</ion-label>
+      <ion-input [(ngModel)]="email" name="email" type="email" required></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label position="floating">Contraseña</ion-label>
+      <ion-input [(ngModel)]="password" name="password" type="password" required></ion-input>
+    </ion-item>
+    <ion-button expand="block" shape="round" type="submit">Ingresar</ion-button>
+  </form>
+</ion-content>
