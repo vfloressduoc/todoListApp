@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AlertController, ToastController } from '@ionic/angular';
 import { TodoService } from 'src/app/services/todo.service';
+import { Todo } from 'src/app/models/todo.model';
 
 @Component({
   selector: 'app-today',
@@ -8,7 +9,7 @@ import { TodoService } from 'src/app/services/todo.service';
   styleUrls: ['./today.page.scss'],
 })
 export class TodayPage {
-  todosDueSemana: any[] = [];
+  todosDueSemana: Todo[] = [];
 
   constructor(
     private alertController: AlertController,
@@ -29,23 +30,23 @@ export class TodayPage {
     });
   }
 
-  markAsDone(todo: any) {
-    this.todoService.archiveTodo(todo);
+  markAsDone(todo: Todo) {
+    this.todoService.archiveTodo(this.todosDueSemana.indexOf(todo)); // Archive by index
     this.presentToast('Tarea marcada como completada! Bien hecho :]');
     this.loadTodosDueSemana(); // Refresh the list after marking as done
   }
 
-  editTodo(todo: any) {
+  editTodo(todo: Todo) {
     this.presentEditTodoAlert(todo);
   }
 
-  deleteTodo(todo: any) {
-    this.todoService.deleteTodo(todo);
+  deleteTodo(todo: Todo) {
+    this.todoService.deleteTodo(this.todosDueSemana.indexOf(todo)); // Delete by index
     this.presentToast('Tarea eliminada!');
     this.loadTodosDueSemana(); // Refresh the list after deleting
   }
 
-  async presentEditTodoAlert(todo: any) {
+  async presentEditTodoAlert(todo: Todo) {
     const editTodoAlert = await this.alertController.create({
       header: 'Edita tu tarea',
       message: 'Cambiar tarea y fecha límite',
@@ -64,11 +65,11 @@ export class TodayPage {
       buttons: [
         { text: 'Cancelar' },
         {
-          text: 'Edit todo',
+          text: 'Editar tarea',
           handler: (inputData) => {
             const todoText = inputData.editTodoInput;
             const newDeadline = new Date(inputData.editTodoDeadline + 'T00:00:00');
-            this.todoService.editTodo(todo, todoText, newDeadline);
+            this.todoService.editTodo(this.todosDueSemana.indexOf(todo), todoText, newDeadline); // Edit by index
             this.presentToast('Tarea editada!');
             this.loadTodosDueSemana(); // Refresh the list after editing
           },

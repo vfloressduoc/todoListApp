@@ -30,8 +30,9 @@ export class TodoPage {
 
   markAsDone(index: number) {
     const todo = this.todos[index];
+    todo.done = true;
     this.todoService.archiveTodo(index);
-    this.presentToast('Task marked as done! Well done :]');
+    this.presentToast('Tarea marcada como completada! Bien hecho :]');
   }
 
   editTodo(index: number) {
