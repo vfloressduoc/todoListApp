@@ -22,22 +22,17 @@ export class TodayPage {
     const today = new Date();
     const nextWeek = new Date();
     nextWeek.setDate(nextWeek.getDate() + 7);
-  
-    console.log('Today:', today);
-    console.log('Next week:', nextWeek);
-  
+
     this.todosDueSemana = this.todoService.getTodos().filter(todo => {
       const deadlineDate = new Date(todo.deadline);
-      console.log('Todo:', todo.text, 'Deadline:', deadlineDate);
       return deadlineDate >= today && deadlineDate <= nextWeek;
     });
-  
-    console.log('Filtered Todos:', this.todosDueSemana);
   }
 
   markAsDone(todo: any) {
     this.todoService.archiveTodo(todo);
-    this.presentToast('Task marked as done');
+    this.presentToast('Tarea marcada como completada! Bien hecho :]');
+    this.loadTodosDueSemana(); // Refresh the list after marking as done
   }
 
   editTodo(todo: any) {
@@ -46,28 +41,36 @@ export class TodayPage {
 
   deleteTodo(todo: any) {
     this.todoService.deleteTodo(todo);
-    this.presentToast('Task deleted');
+    this.presentToast('Tarea eliminada!');
+    this.loadTodosDueSemana(); // Refresh the list after deleting
   }
 
   async presentEditTodoAlert(todo: any) {
     const editTodoAlert = await this.alertController.create({
-      header: 'Edit A Todo',
-      message: 'Change Your Todo',
+      header: 'Edita tu tarea',
+      message: 'Cambiar tarea y fecha límite',
       inputs: [
         {
           type: 'text',
           name: 'editTodoInput',
           value: todo.text,
         },
+        {
+          type: 'date',
+          name: 'editTodoDeadline',
+          value: new Date(todo.deadline).toISOString().split('T')[0],
+        },
       ],
       buttons: [
-        { text: 'Cancel' },
+        { text: 'Cancelar' },
         {
           text: 'Edit todo',
           handler: (inputData) => {
             const todoText = inputData.editTodoInput;
-            this.todoService.editTodo(todo, todoText, todo.deadline); // Add the missing 'deadline' argument
-            this.presentToast('Todo is edited');
+            const newDeadline = new Date(inputData.editTodoDeadline + 'T00:00:00');
+            this.todoService.editTodo(todo, todoText, newDeadline);
+            this.presentToast('Tarea editada!');
+            this.loadTodosDueSemana(); // Refresh the list after editing
           },
         },
       ],

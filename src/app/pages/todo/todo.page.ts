@@ -31,7 +31,7 @@ export class TodoPage {
   markAsDone(index: number) {
     const todo = this.todos[index];
     this.todoService.archiveTodo(index);
-    this.presentToast('Task marked as done');
+    this.presentToast('Tarea marcada como completada! Bien hecho :]');
   }
 
   editTodo(index: number) {
@@ -41,15 +41,15 @@ export class TodoPage {
 
   deleteTodo(index: number) {
     this.todoService.deleteTodo(index);
-    this.presentToast('Task deleted');
+    this.presentToast('Tarea eliminada!');
   }
 
   async presentEditTodoAlert(todoText: string, deadline: Date, todoIndex: number) {
     const formattedDeadline = deadline ? new Date(deadline.getTime() - (deadline.getTimezoneOffset() * 60000)).toISOString().substring(0, 10) : null;
   
     const editTodoAlert = await this.alertController.create({
-      header: 'Edit A Todo',
-      message: 'Change Your Todo',
+      header: 'Edita tu tarea',
+      message: 'Cambiar tarea y fecha límite',
       inputs: [
         {
           type: 'text',
@@ -63,14 +63,14 @@ export class TodoPage {
         },
       ],
       buttons: [
-        { text: 'Cancel' },
+        { text: 'Cancelar' },
         {
-          text: 'Edit todo',
+          text: 'Edita tu tarea',
           handler: (inputData) => {
             const todoText = inputData.editTodoInput;
             const newDeadline = new Date(inputData.editTodoDeadline + 'T00:00:00');
             this.todoService.editTodo(todoIndex, todoText, newDeadline);
-            this.presentToast('Todo is edited');
+            this.presentToast('Tarea editada!');
           },
         },
       ],
@@ -96,13 +96,13 @@ export class TodoPage {
 
   async presentAddTodoAlert() {
     const addTodoAlert = await this.alertController.create({
-      header: 'Add A Todo',
-      message: 'Enter Your Todo',
+      header: 'Agregar Tarea',
+      message: 'Ingrese el texto de la tarea y la fecha límite',
       inputs: [
         {
           type: 'text',
           name: 'addTodoInput',
-          placeholder: 'Todo Text',
+          placeholder: 'Tarea',
         },
         {
           type: 'date',
@@ -111,15 +111,15 @@ export class TodoPage {
         },
       ],
       buttons: [
-        { text: 'Cancel' },
+        { text: 'Cancelar' },
         {
-          text: 'Add todo',
+          text: 'Agregar Tarea',
           handler: (inputData) => {
             const todoText = inputData.addTodoInput;
             const deadlineString = inputData.addTodoDeadline;
             const deadline = new Date(deadlineString + 'T00:00:00'); 
             this.todoService.addTodo(todoText, deadline);
-            this.presentToast('Todo is added');
+            this.presentToast('Tarea agregada!');
           },
         },
       ],
