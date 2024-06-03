@@ -18,7 +18,7 @@
         </ion-avatar> -->
         <ion-label>{{ todo.text }}</ion-label>
         <ion-label slot="end" *ngIf="todo.deadline">
-          {{ todo.deadline | date: 'medium' }}
+          {{ formatDeadline(todo.deadline) }}
         </ion-label>
       </ion-item>
       <ion-item-options slot="end">

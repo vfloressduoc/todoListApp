@@ -15,4 +15,10 @@ export class ArchivePage {
   ionViewWillEnter() {
     this.archivedTodos = this.todoService.getArchivedTodos();
   }
+
+  formatDeadline(deadline: Date): string {
+    if (!deadline) return '';
+    const formattedDate = new Date(deadline);
+    return formattedDate.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+  }
 }
