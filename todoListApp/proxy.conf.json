@@ -1,0 +1,9 @@
+{
+    "/api": {
+      "target": "https://vfloressduoc.github.io",
+      "secure": false,
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+  
